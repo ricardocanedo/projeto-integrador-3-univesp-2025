@@ -8,11 +8,15 @@ Tema: Desenvolver um software com framework web ou aplicativo que utilize banco 
 ## Índice
 
 <!--ts-->
-  * [Requisitos iniciais](#Requisitos-iniciais)
-  * [Ambiente de desenvolvimento](#Ambiente-de-desenvolvimento)
-  * [Projeto](#Projeto)
-  * [Backend](#Backend)
-  * [CMS](#CMS)
+- [Projeto Integrador III](#projeto-integrador-iii)
+  - [Índice](#índice)
+    - [Requisitos iniciais](#requisitos-iniciais)
+    - [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
+      - [Rodar o Projeto Backend](#rodar-o-projeto-backend)
+      - [Rodar o Projeto Frontend](#rodar-o-projeto-frontend)
+    - [Projeto](#projeto)
+      - [Backend](#backend)
+      - [CMS](#cms)
 <!--te-->
 
 
@@ -57,6 +61,13 @@ Crie o superuser do Django
 python manage.py createsuperuser
 ```
 
+#### Rodar o Projeto Backend
+
+Se o ambiente ainda não estiver inicializado inicialize no terminal com o seguinte comando
+```
+. .\venv\Scripts\activate
+````
+
 Rode o servidor do Django
 ```
 python manage.py runserver 
@@ -76,6 +87,8 @@ Instale todas as dependências do React JS
 ```
 npm i
 ```
+
+#### Rodar o Projeto Frontend
 
 Rode o servidor Next
 
