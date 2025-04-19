@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
-const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+const Login: React.FC = () => {
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/authentication/login/', {
-                username,
-                password,
-            });
-            alert(response.data.message);
-            // Save token or handle successful login
+            const response = await api.post('login/', { username, password });
+            const { access } = response.data;
+            localStorage.setItem('access_token', access);
+            navigate('/protected');
         } catch (err) {
             setError('Invalid credentials');
         }
@@ -59,7 +59,6 @@ const Login = () => {
                 </div>
             </form>
         </div>
-
     );
 };
 

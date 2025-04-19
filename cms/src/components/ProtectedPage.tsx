@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 
-const ProtectedPage = () => {
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
+const ProtectedPage: React.FC = () => {
+    const [message, setMessage] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         const fetchProtectedData = async () => {
