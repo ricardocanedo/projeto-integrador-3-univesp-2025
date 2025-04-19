@@ -8,7 +8,6 @@ router = DefaultRouter()
 router.registry.extend(post_router.registry)
 
 urlpatterns = [
-    # path('api/v1/', include(router.urls)),
     path('', include(router.urls)),
 ]
 
