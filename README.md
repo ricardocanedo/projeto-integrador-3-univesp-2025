@@ -30,8 +30,8 @@ Tema: Desenvolver um software com framework web ou aplicativo que utilize banco 
 ### Ambiente de desenvolvimento
 
 Faça o clone do repositório via https ou ssh. Abra o terminal em qualquer pasta que queira manter o projeto e digite: 
-- ```git clone https://github.com/pi-ii-univesp-2024/projeto-integrador-2.git``` para clone via https
-- ```git clone git@github.com:pi-ii-univesp-2024/projeto-integrador-2.git``` para clone via ssh
+- ```git clone https://github.com/ricardocanedo/projeto-integrador-3-univesp-2025.git``` para clone via https
+- ```git clone git@github.com:ricardocanedo/projeto-integrador-3-univesp-2025.git``` para clone via ssh
 
 Com o projeto em sua máquina, crie um ambiente virtual na raiz da pasta /backend
 ```
