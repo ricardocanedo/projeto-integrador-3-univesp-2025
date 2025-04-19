@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 
 import './App.css'
+import ProtectedPage from './components/ProtectedPage';
 
 function App() {
     return (
@@ -11,7 +12,7 @@ function App() {
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              {/* ...other routes... */}
+              <Route path="/protected" element={<ProtectedPage />} />
           </Routes>
       </Router>
   );
