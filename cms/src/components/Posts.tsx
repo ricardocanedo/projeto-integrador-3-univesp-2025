@@ -31,6 +31,18 @@ const Posts: React.FC = () => {
         navigate(`/posts/edit/${id}`);
     };
 
+    const handleDelete = async (id: number) => {
+        if (window.confirm('Tem certeza que quer excluir essa postagem?')) {
+            try {
+                await api.delete(`/api/posts/${id}/`);
+                setPosts(posts.filter((post) => post.id !== id));
+                alert('Postagem deletada com sucesso!');
+            } catch (error) {
+                console.error('Error deleting post:', error);
+            }
+        }
+    };
+
     return (
         <div className="posts-container">
             <Navbar />
@@ -60,7 +72,12 @@ const Posts: React.FC = () => {
                                     >
                                         Edit
                                     </button>
-                                    <button className="btn btn-danger btn-sm">Delete</button>
+                                    <button
+                                        className="btn btn-danger btn-sm"
+                                        onClick={() => handleDelete(post.id)}
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
