@@ -1,10 +1,14 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 const Dashboard: React.FC = () => {
     return (
         <div className="dashboard-container">
-            <h1>Dashboard</h1>
-            <p>Welcome to the CMS Dashboard. Here you can manage your content and view statistics.</p>
+            <Navbar />
+            <div className="content mt-4">
+                <h1>Dashboard</h1>
+                <p>Welcome to the CMS Dashboard. Here you can manage your content and view statistics.</p>
+            </div>
         </div>
     );
 };
