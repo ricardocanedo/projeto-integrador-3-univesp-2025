@@ -20,7 +20,7 @@ const ProtectedPage: React.FC = () => {
     }, []);
 
     return (
-        <div className="protected-container">
+        <div className="protected-container h-100 d-flex flex-column justify-content-center align-items-center">
             <h2>Protected Page</h2>
             {message && <p>{message}</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
