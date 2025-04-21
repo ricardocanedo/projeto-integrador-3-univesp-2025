@@ -32,34 +32,34 @@ const Navbar: React.FC = () => {
                         <li className="nav-item">
                             {location.pathname !== '/dashboard' && (
                                 <Link
-                                    className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                                    className={`nav-link text-capitalize ${location.pathname === '/dashboard' ? 'active' : ''}`}
                                     to="/dashboard"
                                 >
-                                    Dashboard
+                                    dashboard
                                 </Link>
                             )}
                             {location.pathname === '/dashboard' && (
                                 <span
-                                    className={`nav-link active`}
+                                    className={`nav-link text-capitalize active`}
                                 >
-                                    Dashboard
+                                    dashboard
                                 </span>
                             )}
                         </li>
                         <li className="nav-item">
                             {location.pathname !== '/posts' && (
                                 <Link
-                                    className={`nav-link ${location.pathname === '/posts' ? 'active' : ''}`}
+                                    className={`nav-link text-capitalize ${location.pathname === '/posts' ? 'active' : ''}`}
                                     to="/posts"
                                 >
-                                    Posts
+                                    posts
                                 </Link>
                             )}
                             {location.pathname === '/posts' && (
                                 <span
-                                    className={`nav-link active`}
+                                    className={`nav-link text-capitalize active`}
                                 >
-                                    Posts
+                                    posts
                                 </span>
                             )}
                         </li>
