@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
@@ -8,21 +8,33 @@ const Login: React.FC = () => {
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
 
+    useEffect(() => {
+        // Clear tokens when entering the login page
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const response = await api.post('login/', { username, password });
-            const { access } = response.data;
+            const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
+            localStorage.setItem('refresh_token', refresh);
             navigate('/protected');
         } catch (err: any) {
             if (err.response && err.response.data) {
-                setError(err.response.data.detail + ". " +  
-                    err.response.data.messages[0]?.message
-                    || 'An error occurred'
+                setError(
+                    (err.response.data?.error)
+                    ?? (
+                        err.response.data?.detail && err.response.data?.messages[0]?.message
+                        ? err.response.data.detail + ". " + err.response.data.messages[0]?.message
+                        : null
+                    )
+                    ?? 'An error occurred'
                 );
             } else {
-                setError('An error occurred');
+                setError('An unexpected error occurred');
             }
         }
     };

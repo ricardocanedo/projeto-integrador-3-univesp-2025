@@ -7,6 +7,7 @@ const ProtectedPage: React.FC = () => {
 
     useEffect(() => {
         const fetchProtectedData = async () => {
+            setError(''); // Reset error
             try {
                 const response = await api.get('protected/');
                 setMessage(response.data.message);
