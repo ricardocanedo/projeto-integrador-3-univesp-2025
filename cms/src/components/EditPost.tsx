@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import api from '../services/api';
 
@@ -15,6 +15,8 @@ const EditPost: React.FC = () => {
     const [post, setPost] = useState<Post | null>(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [author, setAuthor] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -23,6 +25,7 @@ const EditPost: React.FC = () => {
                 setPost(response.data);
                 setTitle(response.data.title);
                 setContent(response.data.content);
+                setAuthor(response.data.author);
             } catch (error) {
                 console.error('Error fetching post:', error);
             }
@@ -33,11 +36,15 @@ const EditPost: React.FC = () => {
 
     const handleSave = async () => {
         try {
-            await api.put(`/api/posts/${id}/`, { title, content });
-            alert('Post updated successfully!');
+            await api.put(`/api/posts/${id}/`, { title, content, author });
+            // alert('Post updated successfully!');
         } catch (error) {
             console.error('Error updating post:', error);
         }
+    };
+
+    const handleBack = () => {
+        navigate('/posts');
     };
 
     return (
@@ -67,10 +74,26 @@ const EditPost: React.FC = () => {
                                         onChange={(e) => setContent(e.target.value)}
                                     ></textarea>
                                 </div>
-                                <div>
+                                <div className="mb-3">
+                                    <label className="form-label">Autor</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={author}
+                                        onChange={(e) => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                                <div className="d-flex justify-content-between">
                                     <button
                                         type="button"
-                                        className="btn btn-primary float-end"
+                                        className="btn btn-secondary"
+                                        onClick={handleBack}
+                                    >
+                                        Voltar
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
                                         onClick={handleSave}
                                     >
                                         Salvar
