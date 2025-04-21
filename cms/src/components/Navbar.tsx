@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');
@@ -15,7 +16,6 @@ const Navbar: React.FC = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/dashboard">Dashboard</Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -30,11 +30,42 @@ const Navbar: React.FC = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/posts">Posts</Link>
+                            {location.pathname !== '/dashboard' && (
+                                <Link
+                                    className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                                    to="/dashboard"
+                                >
+                                    Dashboard
+                                </Link>
+                            )}
+                            {location.pathname === '/dashboard' && (
+                                <span
+                                    className={`nav-link active`}
+                                >
+                                    Dashboard
+                                </span>
+                            )}
+                        </li>
+                        <li className="nav-item">
+                            {location.pathname !== '/posts' && (
+                                <Link
+                                    className={`nav-link ${location.pathname === '/posts' ? 'active' : ''}`}
+                                    to="/posts"
+                                >
+                                    Posts
+                                </Link>
+                            )}
+                            {location.pathname === '/posts' && (
+                                <span
+                                    className={`nav-link active`}
+                                >
+                                    Posts
+                                </span>
+                            )}
                         </li>
                     </ul>
-                    <span className="navbar-text me-3">Logged in as: {username}</span>
-                    <button className="btn btn-outline-danger" onClick={handleLogout}>Log Out</button>
+                    <span className="navbar-text me-3">{username}</span>
+                    <button className="btn btn-sm btn-outline-primary" onClick={handleLogout}>Log Out</button>
                 </div>
             </div>
         </nav>
