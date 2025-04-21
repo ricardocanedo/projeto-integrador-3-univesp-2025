@@ -12,7 +12,7 @@ const CreatePost: React.FC = () => {
     const handleCreate = async () => {
         try {
             await api.post('/api/posts/', { title, content, author });
-            alert('Post created successfully!');
+            // alert('Post created successfully!');
             navigate('/posts');
         } catch (error) {
             console.error('Error creating post:', error);
