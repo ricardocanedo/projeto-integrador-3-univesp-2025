@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import api from '../services/api';
 
@@ -11,6 +12,7 @@ interface Post {
 
 const Posts: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -25,11 +27,15 @@ const Posts: React.FC = () => {
         fetchPosts();
     }, []);
 
+    const handleEdit = (id: number) => {
+        navigate(`/posts/edit/${id}`);
+    };
+
     return (
         <div className="posts-container">
             <Navbar />
             <div className="content mt-4">
-                <h1>Posts</h1>
+                <h1 className='text-center'>Posts</h1>
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -48,7 +54,12 @@ const Posts: React.FC = () => {
                                 <td>{post.author}</td>
                                 <td>{new Date(post.created_at).toLocaleDateString()}</td>
                                 <td>
-                                    <button className="btn btn-primary btn-sm me-2">Edit</button>
+                                    <button
+                                        className="btn btn-primary btn-sm me-2"
+                                        onClick={() => handleEdit(post.id)}
+                                    >
+                                        Edit
+                                    </button>
                                     <button className="btn btn-danger btn-sm">Delete</button>
                                 </td>
                             </tr>

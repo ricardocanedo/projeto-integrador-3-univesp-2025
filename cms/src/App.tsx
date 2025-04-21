@@ -5,6 +5,7 @@ import Home from './components/Home';
 import ProtectedPage from './components/ProtectedPage';
 import Dashboard from './components/Dashboard';
 import Posts from './components/Posts';
+import EditPost from './components/EditPost';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import './App.css'
@@ -36,6 +37,14 @@ function App() {
                   element={
                       <ProtectedRoute>
                           <Posts />
+                      </ProtectedRoute>
+                  }
+              />
+              <Route
+                  path="/posts/edit/:id"
+                  element={
+                      <ProtectedRoute>
+                          <EditPost />
                       </ProtectedRoute>
                   }
               />
