@@ -21,7 +21,7 @@ const Login: React.FC = () => {
             const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
-            navigate('/protected');
+            navigate('/dashboard');
         } catch (err: any) {
             if (err.response && err.response.data) {
                 setError(
