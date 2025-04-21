@@ -17,7 +17,10 @@ const Login: React.FC = () => {
             navigate('/protected');
         } catch (err: any) {
             if (err.response && err.response.data) {
-                setError(err.response.data.detail || 'An error occurred');
+                setError(err.response.data.detail + ". " +  
+                    err.response.data.messages[0]?.message
+                    || 'An error occurred'
+                );
             } else {
                 setError('An error occurred');
             }
