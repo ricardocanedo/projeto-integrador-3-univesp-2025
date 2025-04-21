@@ -15,8 +15,12 @@ const Login: React.FC = () => {
             const { access } = response.data;
             localStorage.setItem('access_token', access);
             navigate('/protected');
-        } catch (err) {
-            setError('Invalid credentials');
+        } catch (err: any) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.detail || 'An error occurred');
+            } else {
+                setError('An error occurred');
+            }
         }
     };
 
