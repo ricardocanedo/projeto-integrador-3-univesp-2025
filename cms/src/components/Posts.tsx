@@ -43,11 +43,25 @@ const Posts: React.FC = () => {
         }
     };
 
+    const handleCreatePost = () => {
+        navigate('/posts/create');
+    };
+
     return (
         <div className="posts-container">
             <Navbar />
             <div className="content mt-4">
-                <h1 className='text-center'>Posts</h1>
+                <div>
+                    <h1 className='text-center'>Posts</h1>
+                </div>
+                <div className="d-flex justify-content-end mt-0 m-3">
+                    <button
+                        className="btn btn-success"
+                        onClick={handleCreatePost}
+                    >
+                        Criar Nova Postagem
+                    </button>
+                </div>
                 <table className="table table-striped">
                     <thead>
                         <tr>

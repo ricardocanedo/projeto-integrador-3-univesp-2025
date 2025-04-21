@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -7,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import Posts from './components/Posts';
 import EditPost from './components/EditPost';
 import ProtectedRoute from './components/ProtectedRoute';
+import CreatePost from './components/CreatePost';
 
 import './App.css'
 
@@ -37,6 +37,14 @@ function App() {
                   element={
                       <ProtectedRoute>
                           <Posts />
+                      </ProtectedRoute>
+                  }
+              />
+              <Route
+                  path="/posts/create"
+                  element={
+                      <ProtectedRoute>
+                          <CreatePost />
                       </ProtectedRoute>
                   }
               />
