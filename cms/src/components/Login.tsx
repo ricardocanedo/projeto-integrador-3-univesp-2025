@@ -40,10 +40,10 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="login-container">
-            <h2 className='m-4'>Login</h2>
+        <div className="login-container h-100 d-flex flex-column justify-content-center align-items-center">
+            <h2 className='mb-4'>Login</h2>
             <form onSubmit={handleSubmit} className='form'>
-                <div className='form-group row mt-4'>
+                <div className='form-group row mt-2'>
                     <label className='col-sm-4 col-form-label'>Username: </label>
                     <div className="col-sm-8 my-2">
                         <input
