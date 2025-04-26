@@ -52,7 +52,7 @@ const Posts: React.FC = () => {
             <Navbar />
             <div className="content mt-4">
                 <div>
-                    <h1 className='text-center'>Posts</h1>
+                    <h1 className='text-center'>Postagens</h1>
                 </div>
                 <div className="d-flex justify-content-end mt-0 m-3">
                     <button
@@ -65,21 +65,21 @@ const Posts: React.FC = () => {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
+                            <th className='col-1 text-center'>#</th>
+                            <th className='col-5 text-center'>Título</th>
+                            <th className='col-3 text-center'>Autor</th>
+                            <th className='col-2 text-center'>Criado em</th>
+                            <th className='col-1 text-center'>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {posts.map((post) => (
                             <tr key={post.id}>
-                                <td>{post.id}</td>
-                                <td>{post.title}</td>
-                                <td>{post.author}</td>
-                                <td>{new Date(post.created_at).toLocaleDateString()}</td>
-                                <td>
+                                <td className='text-center'>{post.id}</td>
+                                <td className='text-center'>{post.title}</td>
+                                <td className='text-center'>{post.author}</td>
+                                <td className='text-center'>{new Date(post.created_at).toLocaleDateString()}</td>
+                                <td className='text-center'>
                                     <button
                                         className="btn btn-primary btn-sm me-2"
                                         onClick={() => handleEdit(post.id)}
