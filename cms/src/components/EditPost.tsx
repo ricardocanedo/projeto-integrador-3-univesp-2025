@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import api from '../services/api';
+import { toast } from 'react-toastify';
 
 interface Post {
     id: number;
@@ -37,7 +38,7 @@ const EditPost: React.FC = () => {
     const handleSave = async () => {
         try {
             await api.put(`/api/posts/${id}/`, { title, content, author });
-            // alert('Post updated successfully!');
+            toast.success('Postagem editada com sucesso');
         } catch (error) {
             console.error('Error updating post:', error);
         }
