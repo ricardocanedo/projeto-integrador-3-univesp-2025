@@ -53,7 +53,7 @@ const EditPost: React.FC = () => {
             <div className="content">
                 {post ? (
                     <div className="card border-0">
-                        <h1 className='text-center m-4'>Editar Post</h1>
+                        <h1 className='text-center m-4'>Editar Postagens</h1>
                         <div className="card-body">
                             <form>
                                 <div className="mb-3">

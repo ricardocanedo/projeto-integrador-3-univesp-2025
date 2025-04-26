@@ -52,14 +52,14 @@ const Navbar: React.FC = () => {
                                     className={`nav-link text-capitalize ${location.pathname === '/posts' ? 'active' : ''}`}
                                     to="/posts"
                                 >
-                                    posts
+                                    postagens
                                 </Link>
                             )}
                             {location.pathname === '/posts' && (
                                 <span
                                     className={`nav-link text-capitalize active`}
                                 >
-                                    posts
+                                    postagens
                                 </span>
                             )}
                         </li>
