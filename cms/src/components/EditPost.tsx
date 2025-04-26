@@ -70,7 +70,7 @@ const EditPost: React.FC = () => {
                                     <label className="form-label">Conteúdo</label>
                                     <textarea
                                         className="form-control"
-                                        rows={5}
+                                        rows={20}
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
                                     ></textarea>
