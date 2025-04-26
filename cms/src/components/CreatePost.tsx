@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import api from '../services/api';
+import { toast } from 'react-toastify';
 
 const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -14,8 +15,12 @@ const CreatePost: React.FC = () => {
             await api.post('/api/posts/', { title, content, author });
             // alert('Post created successfully!');
             navigate('/posts');
-        } catch (error) {
-            console.error('Error creating post:', error);
+        } catch (err) {
+            console.error('Error creating post:', err);
+            toast.error('Erro! ' 
+                + (err as any)?.message
+                || 'Erro ao criar'
+            );
         }
     };
 
