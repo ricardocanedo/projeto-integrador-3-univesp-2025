@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import api from '../services/api';
 import { toast } from 'react-toastify';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -47,12 +49,14 @@ const CreatePost: React.FC = () => {
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Conteúdo</label>
-                                <textarea
-                                    className="form-control"
-                                    rows={20}
-                                    value={content}
-                                    onChange={(e) => setContent(e.target.value)}
-                                ></textarea>
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    data={content}
+                                    onChange={(event, editor) => {
+                                        const data = editor.getData();
+                                        setContent(data);
+                                    }}
+                                />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Autor</label>
