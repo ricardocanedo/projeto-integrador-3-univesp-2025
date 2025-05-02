@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class PostModelTest(TestCase):
 
@@ -44,6 +45,7 @@ class PostViewTest(TestCase):
 class PostAPITest(APITestCase):
 
     def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.post = Post.objects.create(
             title="Test Post",
             content="This is a test post content.",
@@ -62,6 +64,9 @@ class PostAPITest(APITestCase):
             "author": "",
             "slug": "",
         }
+        # Authenticate user
+        refresh = RefreshToken.for_user(self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
 
     def test_create_post(self):
         response = self.client.post('/api/posts/', self.valid_data)
@@ -91,7 +96,6 @@ class PostAPITest(APITestCase):
 class PostPermissionTest(APITestCase):
 
     def setUp(self):
-        self.client = APIClient()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.post = Post.objects.create(
             title="Test Post",
@@ -105,14 +109,17 @@ class PostPermissionTest(APITestCase):
             "author": "New Author",
             "slug": "new-post",
         }
+        # Authenticate user for authenticated tests
+        self.authenticated_client = APIClient()
+        refresh = RefreshToken.for_user(self.user)
+        self.authenticated_client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
 
     def test_create_post_unauthenticated(self):
         response = self.client.post('/api/posts/', self.valid_data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_create_post_authenticated(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.post('/api/posts/', self.valid_data)
+        response = self.authenticated_client.post('/api/posts/', self.valid_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_update_post_unauthenticated(self):
@@ -122,11 +129,10 @@ class PostPermissionTest(APITestCase):
             "author": "Updated Author",
             "slug": "updated-post",
         })
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_update_post_authenticated(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.put(f'/api/posts/{self.post.id}/', {
+        response = self.authenticated_client.put(f'/api/posts/{self.post.id}/', {
             "title": "Updated Post",
             "content": "Updated content.",
             "author": "Updated Author",
@@ -136,9 +142,9 @@ class PostPermissionTest(APITestCase):
 
     def test_delete_post_unauthenticated(self):
         response = self.client.delete(f'/api/posts/{self.post.id}/')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_delete_post_authenticated(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.delete(f'/api/posts/{self.post.id}/')
+        response = self.authenticated_client.delete(f'/api/posts/{self.post.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Post.objects.count(), 0)
