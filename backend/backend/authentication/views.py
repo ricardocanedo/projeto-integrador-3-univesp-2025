@@ -2,9 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import LoginSerializer
+from django.http import JsonResponse
+from django.views import View
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -29,3 +31,8 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "You are authenticated!"}, status=status.HTTP_200_OK)
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return JsonResponse({"message": "Logout realizado com sucesso."}, status=200)
