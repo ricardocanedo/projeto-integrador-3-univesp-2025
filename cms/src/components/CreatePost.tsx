@@ -10,11 +10,12 @@ const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
+    const [slug, setSlug] = useState('');
     const navigate = useNavigate();
 
     const handleCreate = async () => {
         try {
-            await api.post('/api/posts/', { title, content, author });
+            await api.post('/api/posts/', { title, content, author, slug });
             toast.success('Postagem criada com sucesso');
             navigate('/posts');
         } catch (err) {
@@ -65,6 +66,15 @@ const CreatePost: React.FC = () => {
                                     className="form-control"
                                     value={author}
                                     onChange={(e) => setAuthor(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Slug</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={slug}
+                                    onChange={(e) => setSlug(e.target.value)}
                                 />
                             </div>
                             <div className="d-flex justify-content-between">

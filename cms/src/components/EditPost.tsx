@@ -19,6 +19,7 @@ const EditPost: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
+    const [slug, setSlug] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const EditPost: React.FC = () => {
                 setTitle(response.data.title);
                 setContent(response.data.content);
                 setAuthor(response.data.author);
+                setSlug(response.data.slug);
             } catch (error) {
                 console.error('Error fetching post:', error);
             }
@@ -86,6 +88,15 @@ const EditPost: React.FC = () => {
                                         className="form-control"
                                         value={author}
                                         onChange={(e) => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Slug</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={slug}
+                                        onChange={(e) => setSlug(e.target.value)}
                                     />
                                 </div>
                                 <div className="d-flex justify-content-between">

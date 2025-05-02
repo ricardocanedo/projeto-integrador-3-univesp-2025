@@ -7,6 +7,7 @@ interface Post {
     id: number;
     title: string;
     author: string;
+    slug: string;
     created_at: string;
 }
 
@@ -67,8 +68,9 @@ const Posts: React.FC = () => {
                         <tr>
                             <th className='col-1 text-center'>#</th>
                             <th className='col-5 text-center'>Título</th>
-                            <th className='col-3 text-center'>Autor</th>
-                            <th className='col-2 text-center'>Criado em</th>
+                            <th className='col-2 text-center'>Autor</th>
+                            <th className='col-2 text-center'>Referencial</th>
+                            <th className='col-1 text-center'>Criado em</th>
                             <th className='col-1 text-center'>Ações</th>
                         </tr>
                     </thead>
@@ -78,6 +80,7 @@ const Posts: React.FC = () => {
                                 <td className='text-center'>{post.id}</td>
                                 <td className='text-center'>{post.title}</td>
                                 <td className='text-center'>{post.author}</td>
+                                <td className='text-center'>{post.slug}</td>
                                 <td className='text-center'>{new Date(post.created_at).toLocaleDateString()}</td>
                                 <td className='text-center'>
                                     <button
