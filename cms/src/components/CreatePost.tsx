@@ -76,7 +76,7 @@ const CreatePost: React.FC = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Slug</label>
+                                <label className="form-label">Referencial da URL</label>
                                 <input
                                     type="text"
                                     className="form-control"
