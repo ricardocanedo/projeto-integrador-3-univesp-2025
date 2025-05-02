@@ -1,8 +1,11 @@
 {% extends 'website/base.html' %}
 
+{% load static %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
 <h1>Bem-vindo à Home</h1>
 <p>Conteúdo geral da empresa.</p>
+<img src="{% static 'website/media/example.webp' %}" alt="Exemplo" style="max-width: 100%; height: auto;">
 {% endblock %}
