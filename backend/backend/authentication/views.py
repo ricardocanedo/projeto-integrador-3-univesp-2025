@@ -7,6 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import LoginSerializer
 from django.http import JsonResponse
 from django.views import View
+from django.shortcuts import redirect
 
 class LoginView(APIView):
     permission_classes = [AllowAny]

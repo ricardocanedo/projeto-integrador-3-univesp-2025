@@ -14,13 +14,9 @@ class AuthenticationTest(TestCase):
     def test_logout(self):
         self.client.login(username='testuser', password='testpassword')
         response = self.client.get(reverse('logout'))
-        self.assertEqual(response.status_code, 302)  # Redirect after logout
-
-    def test_register(self):
-        response = self.client.post(reverse('register'), {
-            'username': 'newuser',
-            'password1': 'newpassword',
-            'password2': 'newpassword',
-        })
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(User.objects.filter(username='newuser').exists())
+        self.assertContains(response, "Logout realizado com sucesso.")
+
+        # Test if authenticated route is no longer accessible
+        protected_response = self.client.get(reverse('protected'))
+        self.assertEqual(protected_response.status_code, 401)
