@@ -3,6 +3,8 @@ from django.urls import reverse
 from .models import Post
 from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APIClient
+from django.contrib.auth.models import User
 
 class PostModelTest(TestCase):
 
@@ -85,3 +87,58 @@ class PostAPITest(APITestCase):
         response = self.client.delete(f'/api/posts/{self.post.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Post.objects.count(), 0)
+
+class PostPermissionTest(APITestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.post = Post.objects.create(
+            title="Test Post",
+            content="This is a test post content.",
+            author="Test Author",
+            slug="test-post",
+        )
+        self.valid_data = {
+            "title": "New Post",
+            "content": "This is a new post content.",
+            "author": "New Author",
+            "slug": "new-post",
+        }
+
+    def test_create_post_unauthenticated(self):
+        response = self.client.post('/api/posts/', self.valid_data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_create_post_authenticated(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post('/api/posts/', self.valid_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_update_post_unauthenticated(self):
+        response = self.client.put(f'/api/posts/{self.post.id}/', {
+            "title": "Updated Post",
+            "content": "Updated content.",
+            "author": "Updated Author",
+            "slug": "updated-post",
+        })
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_update_post_authenticated(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.put(f'/api/posts/{self.post.id}/', {
+            "title": "Updated Post",
+            "content": "Updated content.",
+            "author": "Updated Author",
+            "slug": "updated-post",
+        })
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_delete_post_unauthenticated(self):
+        response = self.client.delete(f'/api/posts/{self.post.id}/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_post_authenticated(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.delete(f'/api/posts/{self.post.id}/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

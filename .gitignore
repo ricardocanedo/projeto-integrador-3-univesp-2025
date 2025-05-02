@@ -1,4 +1,5 @@
 # .gitignore na raiz do projeto
+*.ini
 
 # Node modules (React)
 frontend/node_modules/
