@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Home{% endblock %}</title>
-</head>
-<body>
-    {% include 'website/header.html' %}
+{% extends 'website/base.html' %}
 
-    <main>
-        {% block content %}
-        <h1>Bem-vindo à Home</h1>
-        <p>Conteúdo geral da empresa.</p>
-        {% endblock %}
-    </main>
+{% block title %}Home{% endblock %}
 
-    {% include 'website/footer.html' %}
-</body>
-</html>
+{% block content %}
+<h1>Bem-vindo à Home</h1>
+<p>Conteúdo geral da empresa.</p>
+{% endblock %}
