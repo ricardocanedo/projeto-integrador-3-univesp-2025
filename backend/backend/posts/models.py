@@ -7,6 +7,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     content = models.TextField()
+    summary = models.TextField(blank=True, null=True)
     author = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -15,6 +16,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_summary(self):
+        return self.summary if self.summary else self.content[:300] + ('...' if len(self.content) > 300 else '')
 
     def __str__(self):
         return f"Post: {self.title} - by {self.author}"

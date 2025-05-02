@@ -10,6 +10,7 @@ const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
+    const [summary, setSummary] = useState('');
     const [slug, setSlug] = useState('');
     const navigate = useNavigate();
 
@@ -66,6 +67,15 @@ const CreatePost: React.FC = () => {
                                     className="form-control"
                                     value={author}
                                     onChange={(e) => setAuthor(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Resumo</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={summary}
+                                    onChange={(e) => setSummary(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
