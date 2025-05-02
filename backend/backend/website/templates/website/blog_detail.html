@@ -10,3 +10,12 @@
     <p>Exibindo detalhes da postagem: {{ slug }}</p>
 </body>
 </html>
+
+{% extends 'website/home.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+{% endblock %}
