@@ -42,11 +42,23 @@ const EditPost: React.FC = () => {
     }, [id]);
 
     const handleSave = async () => {
+        // if (!slug) {
+        //     toast.error('O campo Slug não pode ser vazio.');
+        //     return;
+        // }
         try {
-            await api.put(`/api/posts/${id}/`, { title, content, author });
+            await api.put(`/api/posts/${id}/`, {
+                title,
+                content,
+                author,
+                slug,
+                summary,
+            });
             toast.success('Postagem editada com sucesso');
+            navigate('/posts');
         } catch (error) {
             console.error('Error updating post:', error);
+            toast.error('Erro ao editar a postagem.');
         }
     };
 
@@ -60,7 +72,7 @@ const EditPost: React.FC = () => {
             <div className="content">
                 {post ? (
                     <div className="card border-0">
-                        <h1 className='text-center m-4'>Editar Postagens</h1>
+                        <h1 className='text-center m-4'>Editar Postagem</h1>
                         <div className="card-body">
                             <form>
                                 <div className="mb-3">
