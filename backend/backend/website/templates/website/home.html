@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
-    <h1>Bem-vindo à Home</h1>
-    <p>Conteúdo geral da empresa.</p>
+    {% include 'website/header.html' %}
+
+    <main>
+        {% block content %}
+        <h1>Bem-vindo à Home</h1>
+        <p>Conteúdo geral da empresa.</p>
+        {% endblock %}
+    </main>
+
+    {% include 'website/footer.html' %}
 </body>
 </html>
