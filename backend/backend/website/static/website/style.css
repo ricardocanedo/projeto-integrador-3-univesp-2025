@@ -230,6 +230,10 @@ p {
     height: 140px;
 }
 
+.card-autor {
+    margin-top: 65px;
+}
+
 @media screen and (min-width: 1430px) {
     #home {
         padding-top: 34vh;
