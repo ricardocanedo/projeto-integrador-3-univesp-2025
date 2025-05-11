@@ -1,22 +1,268 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Poppins', sans-serif;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+body {
+    background-color: #fff;
 }
 
-footer {
-    background-color: #333;
+section {
+    background-color: #fff;
+    color: #212121;
+    margin-bottom: 18px;
+}
+
+section.container {
+    padding-bottom: 4rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
+}
+
+h1 {
+    font-size: 1.0rem;
+}
+
+p {
+    font-weight: 300;
+}
+
+.top {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0px;
+    z-index: 1000;
+}
+
+.top-brand {
+    font-size: 2rem;
+    font-weight: 300;
     color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    bottom: 0;
-    width: 100%;
+}
+
+#home {
+    padding-top: 360px;
+    border-radius: 0 0 10px 10px;
+}
+
+.home-title {
+    color: #fff;
+}
+
+.home-banner {
+    background-image: url('../assets/img/banner.png');
+    background-size: cover;
+    background-position: top;
+}
+
+.banner {
+    background: linear-gradient(225deg, #343434 0%, #727272 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+.card-banner {
+    border-radius: 10px !important;
+    background-color: rgba(250, 250, 250, 0.28);
+    padding: 30px;
+}
+
+.card-equal-height {
+    height: 100%;
+}
+
+.banner-title {
+    font-size: 2.5rem;
+}
+
+.color-light {
+    color: #f3f3f3;
+}
+
+.text-gray {
+    color: #676767;
+}
+
+.text-dark {
+    color: #212121;
+}
+
+.text-wight-300 {
+    font-weight: 300;
+}
+
+.translucido {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.btn-link {
+    max-width: 180px;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+}
+
+.rounded-20 {
+    border-radius: 20px;
+}
+
+.rounded-left-20 {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.rounded-right-20 {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.card-textbox {
+    height: 180px;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-post {
+    margin-top: 44px;
+    margin-bottom: 44px;
+}
+
+.card-img-post {
+    height: 200px;
+    object-fit: cover;
+}
+
+.img-ajust-top {
+    object-position: 0% 30%;
+}
+
+.card-rounded-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-rounded-10 {
+    border-radius: 10px;
+}
+
+.min-h-300 {
+    min-height: 300px;
+}
+
+.area-atuacao-1 {
+    background-image: url('./img/418.jpg');
+    background-size: cover;
+}
+
+.area-atuacao-2 {
+    background-image: url('./img/731_webp.webp');
+    background-size: cover;
+}
+
+.area-atuacao-3 {
+    background-image: url('./img/shack-8090832_640.jpg');
+    background-size: cover;
+}
+
+.area-atuacao-4 {
+    background-image: url('./img/157_webp.webp');
+    background-size: cover;
+}
+
+.text-title-light {
+    color: #f3f3f3;
+    margin: 12px;
+}
+
+.card-equipe {
+    width: 20vw;
+    height: 20vw;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.contem-input-cadastrar {
+    display: flex;
+    justify-content: center;
+}
+
+.link-underline {
+    text-decoration: solid white 1px underline;
+}
+
+.autor-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.autor-name {
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.autor-img {
+    object-fit: cover;
+    width: 140px;
+    height: 140px;
+}
+
+@media screen and (min-width: 1430px) {
+    #home {
+        padding-top: 34vh;
+        height: 98vh;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .contem-input-cadastrar {
+        display: flex;
+        justify-content: left !important;
+    }
+}
+
+@media screen and (min-width: 840px) {
+    #home {
+        padding-top: 56vh;
+    }
+
+    .card-banner {
+        max-width: 700px;
+        margin-left: 15vw;
+    }
+
+    .img-500 {
+        width: 500px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .home-banner {
+        background-size: cover;
+        background-position: 80%;
+    }
 }
