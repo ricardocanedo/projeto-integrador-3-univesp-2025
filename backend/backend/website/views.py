@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from posts.models import Post
+from django.utils.timezone import now
+from posts.models import Post, PostViewStats
 
 def home(request):
     return render(request, 'website/home.html')
@@ -13,6 +14,21 @@ def blog_list(request):
 
 def blog_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
+
+    # Incrementar o número de visualizações no modelo Post
+    post.views += 1
+    post.save()
+
+    # Atualizar ou criar registro no PostViewStats
+    current_month_year = now().strftime('%Y-%m')
+    stats, created = PostViewStats.objects.get_or_create(
+        post=post,
+        month_year=current_month_year,
+        defaults={'views': 0}
+    )
+    stats.views += 1
+    stats.save()
+
     return render(request, 'website/blog_detail.html', {'post': post})
 
 def politica_de_privacidade(request):

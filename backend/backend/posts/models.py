@@ -11,6 +11,7 @@ class Post(models.Model):
     author = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    views = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -22,3 +23,14 @@ class Post(models.Model):
 
     def __str__(self):
         return f"Post: {self.title} - by {self.author}"
+
+class PostViewStats(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='view_stats')
+    month_year = models.CharField(max_length=7)  # Formato: YYYY-MM
+    views = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('post', 'month_year')
+
+    def __str__(self):
+        return f"{self.post.title} - {self.month_year}: {self.views} views"
