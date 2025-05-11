@@ -60,7 +60,7 @@ p {
 }
 
 .home-banner {
-    background-image: url('../assets/img/banner.png');
+    background-image: url('/static/website/media/banner.png');
     background-size: cover;
     background-position: top;
 }
@@ -169,22 +169,22 @@ p {
 }
 
 .area-atuacao-1 {
-    background-image: url('./img/418.jpg');
+    background-image: url('/static/website/media/418.jpg');
     background-size: cover;
 }
 
 .area-atuacao-2 {
-    background-image: url('./img/731_webp.webp');
+    background-image: url('/static/website/media/731_webp.webp');
     background-size: cover;
 }
 
 .area-atuacao-3 {
-    background-image: url('./img/shack-8090832_640.jpg');
+    background-image: url('/static/website/media/shack-8090832_640.jpg');
     background-size: cover;
 }
 
 .area-atuacao-4 {
-    background-image: url('./img/157_webp.webp');
+    background-image: url('/static/website/media/157_webp.webp');
     background-size: cover;
 }
 
