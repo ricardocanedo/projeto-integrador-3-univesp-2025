@@ -12,6 +12,18 @@
 
 <section class="py-5">
     <div class="container-lg">
+        <!-- banner -->
+         {% if post.banner_image %}
+        <section>
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <img src="{{ post.banner_image.url }}" 
+                        class="img-fluid rounded-20" alt="{{ post.title }}">
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
         <!-- Conteúdo -->
         <section>
             {{ post.content|safe }}

@@ -17,6 +17,7 @@ const EditPost: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [post, setPost] = useState<Post | null>(null);
     const [title, setTitle] = useState('');
+    const [bannerImage, setBannerImage] = useState(null);
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [slug, setSlug] = useState('');
@@ -33,6 +34,11 @@ const EditPost: React.FC = () => {
                 setAuthor(response.data.author);
                 setSlug(response.data.slug);
                 setSummary(response.data.summary);
+
+                // Se houver uma imagem, defina o estado para exibi-la
+                if (response.data.banner_image) {
+                    setBannerImage(response.data.banner_image);
+                }
             } catch (error) {
                 console.error('Error fetching post:', error);
             }
@@ -42,18 +48,24 @@ const EditPost: React.FC = () => {
     }, [id]);
 
     const handleSave = async () => {
-        // if (!slug) {
-        //     toast.error('O campo Slug não pode ser vazio.');
-        //     return;
-        // }
         try {
-            await api.put(`/api/posts/${id}/`, {
-                title,
-                content,
-                author,
-                slug,
-                summary,
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("content", content);
+            formData.append("author", author);
+            formData.append("slug", slug);
+            formData.append("summary", summary);
+
+            if (bannerImage && typeof bannerImage !== "string") {
+                formData.append("banner_image", bannerImage);
+            }
+
+            await api.put(`/api/posts/${id}/`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             });
+
             toast.success('Postagem editada com sucesso');
             navigate('/posts');
         } catch (error) {
@@ -84,6 +96,26 @@ const EditPost: React.FC = () => {
                                         onChange={(e) => setTitle(e.target.value)}
                                     />
                                 </div>
+
+                                {bannerImage && (
+                                    <div className="mb-3">
+                                        <label className="form-label">Banner Atual</label>
+                                        <div>
+                                            <img src={bannerImage} alt="Banner do Post" className="img-thumbnail" />
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="mb-3">
+                                    <label className="form-label">Banner do Post</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        accept="image/*"
+                                        onChange={(e) => setBannerImage(e.target.files[0])}
+                                    />
+                                </div>
+
                                 <div className="mb-3">
                                     <label className="form-label">Conteúdo</label>
                                     <CKEditor

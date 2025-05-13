@@ -31,7 +31,8 @@
                 {% for post in posts %}
                     <div class="col-xl-4 col-md-6 col-12">
                         <div class="card card-post mb-2 shadow-sm card-rounded-10">
-                            <img src="/static/website/blog/" class="card-img-post img-ajust-top card-rounded-top" alt="">
+                            <img src="{% if post.banner_image %}{{ post.banner_image.url }}{% else %}/static/website/blog/default_banner.jpg{% endif %}" 
+                                class="card-img-post img-ajust-top card-rounded-top" alt="{{ post.title }}">
                             <div class="card-body">
                                 {% if post.slug %}
                                     <h5 class="card-title"><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h5>

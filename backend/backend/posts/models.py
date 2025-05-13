@@ -6,6 +6,7 @@ from django.utils.text import slugify
 class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
+    banner_image = models.ImageField(upload_to='blog/banners/', blank=True, null=True)
     content = models.TextField()
     summary = models.TextField(blank=True, null=True)
     author = models.CharField(max_length=100)
