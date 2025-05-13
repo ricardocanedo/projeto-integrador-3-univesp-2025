@@ -7,7 +7,7 @@ class WebsiteViewTest(TestCase):
     def test_home_view(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Bem-vindo à Home')
+        self.assertContains(response, 'Defesa médica de alta complexidade')
 
     def test_sobre_view(self):
         response = self.client.get(reverse('sobre'))
@@ -17,12 +17,12 @@ class WebsiteViewTest(TestCase):
     def test_area_de_atuacao_view(self):
         response = self.client.get(reverse('area_de_atuacao'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Área de Atuação')
+        self.assertContains(response, 'Áreas de Atuação')
 
     def test_politica_de_privacidade_view(self):
         response = self.client.get(reverse('politica_de_privacidade'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Política de Privacidade')
+        self.assertContains(response, 'Política De Privacidade')
 
 class BlogViewTest(TestCase):
 
