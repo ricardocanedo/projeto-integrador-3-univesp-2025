@@ -25,6 +25,7 @@
                 <div class="newsletter-form">
                     <div lang="pt-BR">
                         <form  method="post" class="" aria-label="Formulários de contato">
+                            {% csrf_token %}
                             <div style="display: none;">
                                 <input type="hidden" name="" value="96">
                                 <input type="hidden" name="version" value="6.0.2">

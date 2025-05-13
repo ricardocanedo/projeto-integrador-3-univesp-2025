@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'posts',
     'authentication',
     'website',
+    'subscription',
 ]
 
 CORS_ALLOWED_ORIGINS = [
