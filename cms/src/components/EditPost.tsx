@@ -105,7 +105,6 @@ const EditPost: React.FC = () => {
                                         </div>
                                     </div>
                                 )}
-
                                 <div className="mb-3">
                                     <label className="form-label">Banner do Post</label>
                                     <input
@@ -115,7 +114,6 @@ const EditPost: React.FC = () => {
                                         onChange={(e) => setBannerImage(e.target.files[0])}
                                     />
                                 </div>
-
                                 <div className="mb-3">
                                     <label className="form-label">Conteúdo</label>
                                     <CKEditor

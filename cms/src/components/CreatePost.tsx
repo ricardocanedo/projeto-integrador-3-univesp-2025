@@ -8,6 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
+    const [bannerImage, setBannerImage] = useState(null);
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [slug, setSlug] = useState('');
@@ -16,13 +17,23 @@ const CreatePost: React.FC = () => {
 
     const handleCreate = async () => {
         try {
-            await api.post('/api/posts/', { 
-                title, 
-                content, 
-                author, 
-                slug,
-                summary,
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("content", content);
+            formData.append("author", author);
+            formData.append("slug", slug);
+            formData.append("summary", summary);
+
+            if (bannerImage && typeof bannerImage !== "string") {
+                formData.append("banner_image", bannerImage);
+            }
+
+            await api.post('/api/posts/', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             });
+
             toast.success('Postagem criada com sucesso');
             navigate('/posts');
         } catch (err) {
@@ -53,6 +64,15 @@ const CreatePost: React.FC = () => {
                                     className="form-control"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Banner do Post</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    accept="image/*"
+                                    onChange={(e) => setBannerImage(e.target.files[0])}
                                 />
                             </div>
                             <div className="mb-3">
