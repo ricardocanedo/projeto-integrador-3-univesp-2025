@@ -10,6 +10,7 @@ interface PostStats {
 
 const Dashboard: React.FC = () => {
     const [totalPosts, setTotalPosts] = useState(0);
+    const [totalNewsletter, setTotalNewsletter] = useState(0);
     const [postsByAuthor, setPostsByAuthor] = useState<any[]>([]);
     const [postsByMonth, setPostsByMonth] = useState<any[]>([]);
     const [postStats, setPostStats] = useState<PostStats[]>([]);
@@ -19,6 +20,7 @@ const Dashboard: React.FC = () => {
             try {
                 const response = await api.get('/api/analytics/');
                 setTotalPosts(response.data.total_posts);
+                setTotalNewsletter(response.data.total_newsletter);
                 setPostsByAuthor(response.data.posts_by_author);
                 setPostsByMonth(response.data.posts_by_month);
             } catch (error) {
@@ -52,11 +54,12 @@ const Dashboard: React.FC = () => {
                 <h1 className="text-center">Dashboard</h1>
                 <div className="analytics">
                     <div className="card card-body my-4">
-                        <h3>Total de Posts</h3>
-                        <p>{totalPosts}</p>
+                        <h3 className='mb-4'>Geral</h3>
+                        <p>Postagens Publicadas: {totalPosts}</p>
+                        <p>Inscrições Newsletter: {totalNewsletter}</p>
                     </div>
                     <div className="card card-body my-4">
-                        <h3>Posts por Autor</h3>
+                        <h3 className='mb-4'>Posts Por Autor</h3>
                         <ul>
                             {postsByAuthor.map((author: any) => (
                                 <li key={author.author}>{author.author}: {author.count}</li>
@@ -64,7 +67,7 @@ const Dashboard: React.FC = () => {
                         </ul>
                     </div>
                     <div className="card card-body my-4">
-                        <h3>Posts por Mês</h3>
+                        <h3 className='mb-4'>Posts Por Mês</h3>
                         <ul>
                             {postsByMonth.map((month: any) => (
                                 // get month / year from month
@@ -73,7 +76,7 @@ const Dashboard: React.FC = () => {
                         </ul>
                     </div>
                     <div className="card card-body my-4">
-                        <h3>Taxas de Acesso por Post e Mês</h3>
+                        <h3 className='mb-4'>Taxas de Acesso Por Post e Mês</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
