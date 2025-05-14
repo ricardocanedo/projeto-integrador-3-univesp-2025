@@ -33,7 +33,7 @@ const EditPost: React.FC = () => {
                 setContent(response.data.content);
                 setAuthor(response.data.author);
                 setSlug(response.data.slug);
-                setSummary(response.data.summary);
+                setSummary(response.data.summary ?? '');
 
                 // Se houver uma imagem, defina o estado para exibi-la
                 if (response.data.banner_image) {
@@ -97,7 +97,7 @@ const EditPost: React.FC = () => {
                                     />
                                 </div>
 
-                                {bannerImage && (
+                                {bannerImage && typeof bannerImage == 'string' && (
                                     <div className="mb-3">
                                         <label className="form-label">Banner Atual</label>
                                         <div>
