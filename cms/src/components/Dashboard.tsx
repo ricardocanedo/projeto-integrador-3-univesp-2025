@@ -48,30 +48,31 @@ const Dashboard: React.FC = () => {
     return (
         <div className="dashboard-container">
             <Navbar />
-            <div className="content mt-4">
+            <div className="content m-4">
                 <h1 className="text-center">Dashboard</h1>
                 <div className="analytics">
-                    <div className="card">
+                    <div className="card card-body my-4">
                         <h3>Total de Posts</h3>
                         <p>{totalPosts}</p>
                     </div>
-                    <div className="card">
+                    <div className="card card-body my-4">
                         <h3>Posts por Autor</h3>
                         <ul>
                             {postsByAuthor.map((author: any) => (
-                                <li key={author.name}>{author.name}: {author.count}</li>
+                                <li key={author.author}>{author.author}: {author.count}</li>
                             ))}
                         </ul>
                     </div>
-                    <div className="card">
+                    <div className="card card-body my-4">
                         <h3>Posts por Mês</h3>
                         <ul>
                             {postsByMonth.map((month: any) => (
-                                <li key={month.month}>{month.month}: {month.count}</li>
+                                // get month / year from month
+                                <li key={month.month}>{new Date(month.month).toLocaleString('default', { month: 'long' })}-{new Date(month.month).getFullYear()}: {month.count}</li>
                             ))}
                         </ul>
                     </div>
-                    <div className="card">
+                    <div className="card card-body my-4">
                         <h3>Taxas de Acesso por Post e Mês</h3>
                         <table className="table table-striped">
                             <thead>
@@ -94,6 +95,7 @@ const Dashboard: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <div>&nbsp;</div>
         </div>
     );
 };
