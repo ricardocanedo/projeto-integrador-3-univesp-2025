@@ -118,6 +118,15 @@ p {
     text-decoration: none;
 }
 
+.rounded-10 {
+    border-radius: 10px;
+}
+
+.rounded-top-10 {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
 .rounded-20 {
     border-radius: 20px;
 }
@@ -153,15 +162,6 @@ p {
 
 .img-ajust-top {
     object-position: 0% 30%;
-}
-
-.card-rounded-top {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.card-rounded-10 {
-    border-radius: 10px;
 }
 
 .min-h-300 {
