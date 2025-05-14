@@ -40,7 +40,7 @@
                                     <h5 class="card-title">{{ post.title }}</h5>
                                 {% endif %}
                                 
-                                <p class="card-text">{{ post.get_summary|safe }}</p>
+                                <div class="card-bloglist-textbox mb-3">{{ post.get_summary|safe }}</div>
 
                                 {% if post.slug %}
                                     <a href="{% url 'blog_detail' post.slug %}" class="btn btn-primary">Continue lendo <i class="fa fa-arrow-right"></i></a>

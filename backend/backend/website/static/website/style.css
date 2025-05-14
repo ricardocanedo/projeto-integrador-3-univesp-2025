@@ -149,6 +149,14 @@ section ul li {
     height: 180px;
 }
 
+.card-bloglist-textbox {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .card-img-top {
     height: 180px;
     object-fit: cover;
