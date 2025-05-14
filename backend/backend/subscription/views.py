@@ -14,7 +14,6 @@ def subscribe(request):
             return JsonResponse({"message": "E-mail não fornecido."}, status=400)
 
         try:
-        
             validate_email(email)  # Valida formato do e-mail
             subscription, created = Subscription.objects.get_or_create(email=email)
             if created:
