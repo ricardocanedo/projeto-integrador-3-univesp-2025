@@ -234,6 +234,18 @@ p {
     margin-top: 65px;
 }
 
+.post-card-home {
+    max-height: 500px;
+}
+
+.post-card-home p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Número máximo de linhas antes do corte */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media screen and (min-width: 1430px) {
     #home {
         padding-top: 34vh;

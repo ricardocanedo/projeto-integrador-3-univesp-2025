@@ -3,7 +3,8 @@ from django.utils.timezone import now
 from posts.models import Post, PostViewStats
 
 def home(request):
-    return render(request, 'website/home.html')
+    posts = Post.objects.get_queryset().order_by('-created_at')[:4]  # Pega os 4 posts mais recentes
+    return render(request, 'website/home.html', {'posts': posts})
 
 def area_de_atuacao(request):
     return render(request, 'website/area_de_atuacao.html')

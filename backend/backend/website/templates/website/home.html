@@ -93,59 +93,30 @@
                 <p class="text-gray">Conheça nossas principais postagens do que acontece no meio jurídico. Um blog informativo com as novidades e assuntos mais importantes.</p>
             </div>
         </div>
+        
         <div class="row my-4">
-            <div class="col-xl-3 col-md-6 col-12 my-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img src="/static/website/blog/bird-9432600_640.webp" class="card-img-top card-rounded-top" alt="Post 1">
-                    <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
-                        <h5 class="card-title">Como melhorar sua produtividade</h5>
-                        <p class="text-justify text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quaerat quis iure</p>
-                        <div>
-                            <p class="card-text text-muted m-0">Alice Camila</p>
-                            <a href="blog/como-melhorar-sua-produtividade.html" class="btn btn-dark mt-1 w-75">Ler mais</a>
+            {% for post in posts %}
+                <div class="post-card-home col-xl-3 col-md-6 col-12 my-3">
+                    <div class="card h-100 d-flex flex-column">
+                        <img src="{% if post.banner_image %}{{ post.banner_image.url }}{% else %}/static/website/blog/default_banner.jpg{% endif %}" 
+                            class="card-img-top" alt="{{ post.title }}">
+                        <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
+                            {% if post.slug %}
+                                <h5 class="card-title mb-3"><a class="text-dark" href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h5>
+                            {% else %}
+                                <h5 class="card-title mb-3">{{ post.title }}</h5>
+                            {% endif %}
+                            <p class="text-justify text-muted">{{ post.get_summary|safe }}</p>
+                            <div>
+                                <p class="card-text text-muted m-0">{{ post.author }}</p>
+                                {% if post.slug %}
+                                    <a href="{% url 'blog_detail' post.slug %}" class="btn btn-dark mt-1 w-75">Ler mais</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-12 my-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img src="/static/website/blog/mountain-7195958_640.jpg" class="card-img-top card-rounded-top" alt="Post 2">
-                    <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
-                        <h5 class="card-title">Dicas de postura</h5>
-                        <p class="text-justify text-muted">doloribus voluptatum aliquam maxime accusamus impedit error? Numquam officiis voluptatibus atque vitae possimus.</p>
-                        <div>
-                            <p class="card-text text-muted m-0">Pedro Tabavani</p>
-                            <a href="#" class="btn btn-dark mt-1 w-75">Ler mais</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-12 my-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img src="/static/website/blog/sky-7504583_640.jpg" class="card-img-top card-rounded-top" alt="Post 3">
-                    <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
-                        <h5 class="card-title">Um dia você vai precisar disso</h5>
-                        <p class="text-justify text-muted">Lorem ipsuitia! Magnam enim delectus unde doloribus voluptatum aliquam maxime accusamus impedit error? Numquam offimus.</p>
-                        <div>
-                            <p class="card-text text-muted m-0">Alice Camila</p>
-                            <a href="#" class="btn btn-dark mt-1 w-75">Ler mais</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 col-12 my-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img src="/static/website/blog/woman-8894656_640.jpg" class="card-img-top card-rounded-top" alt="Post 4">
-                    <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
-                        <h5 class="card-title">O juiz deferiu. E agora?</h5>
-                        <p class="text-justify text-muted">Lore! Magnam enim delectus unde doloribus voluptatum aliquam maxime accusavitae possimus.</p>
-                        <div>
-                            <p class="card-text text-muted m-0">Alice Camila</p>
-                            <a href="#" class="btn btn-dark mt-1 w-75">Ler mais</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
