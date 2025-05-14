@@ -71,31 +71,63 @@ const Dashboard: React.FC = () => {
                 <div className="analytics">
                     <div className="card card-body my-4">
                         <h3 className='mb-4'>Geral</h3>
-                        <p>Postagens Publicadas: {totalPosts}</p>
-                        <p>Inscrições Newsletter: {totalNewsletter}</p>
+                        <table className="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td className='text-center col-6'>Postagens Publicadas</td>
+                                    <td className='text-center col-6'>{totalPosts}</td>
+                                </tr>
+                                <tr>
+                                    <td className='text-center col-6'>Inscrições Newsletter</td>
+                                    <td className='text-center col-6'>{totalNewsletter}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div className="card card-body my-4">
                         <h3 className='mb-4'>Posts Por Autor</h3>
-                        <ul>
-                            {postsByAuthor.map((author: any) => (
-                                <li key={author.author}>{author.author}: {author.count}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="card card-body my-4">
-                        <h3 className='mb-4'>Posts Por Mês</h3>
-                        <ul>
-                            {postsByMonth.map((month: any) => (
-                                <li key={month.month}>{new Date(month.month).toLocaleString('default', { month: 'long' })}-{new Date(month.month).getFullYear()}: {month.count}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="card card-body my-4">
-                        <h3 className='mb-4'>Taxas de Acesso Por Post e Mês</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
-                                    <th className="text-center">Mês/Ano</th>
+                                    <th className="text-center col-6">Autor</th>
+                                    <th className="text-center col-6">Quantidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {postsByAuthor.map((author: any) => (
+                                    <tr key={author.author}>
+                                        <td className="text-center col-6">{author.author}</td>
+                                        <td className="text-center col-6">{author.count}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="card card-body my-4">
+                        <h3 className='mb-4'>Posts Por Mês E Ano</h3>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th className="text-center">Ano - Mês</th>
+                                    <th className="text-center">Quantidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {postsByMonth.map((month: any) => (
+                                    <tr key={month.month}>
+                                        <td className="text-center">{new Date(month.month).getFullYear()} - {new Date(month.month).toLocaleString('default', { month: 'long' })}</td>
+                                        <td className="text-center">{month.count}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="card card-body my-4">
+                        <h3 className='mb-4'>Taxas de Acesso Por Post, Mês E Ano</h3>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th className="text-center">Ano - Mês</th>
                                     <th className="text-center">Post</th>
                                     <th className="text-center">Visualizações</th>
                                 </tr>
@@ -103,7 +135,7 @@ const Dashboard: React.FC = () => {
                             <tbody>
                                 {postStats.map((stat, index) => (
                                     <tr key={index}>
-                                        <td className="text-center">{stat.month_year}</td>
+                                        <td className="text-center">{new Date(stat.month_year).getFullYear()} - {new Date(stat.month_year).toLocaleString('default', { month: 'long' })}</td>
                                         <td className="text-center">{stat.post_title}</td>
                                         <td className="text-center">{stat.views}</td>
                                     </tr>
@@ -112,20 +144,20 @@ const Dashboard: React.FC = () => {
                         </table>
                     </div>
                     <div className="card card-body my-4">
-                        <h3 className='mb-4'>Inscrições na Newsletter</h3>
+                        <h3 className='mb-4'>Inscrições Na Newsletter</h3>
                         <table className="table table-striped">
                             <thead>
                                 <tr>
-                                    <th className="text-center">Emails</th>
-                                    <th className="text-center">Data de inscrição</th>
+                                    <th className="text-center col-6">Emails</th>
+                                    <th className="text-center col-6">Data da Inscrição</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {subscriptionStats.map((stat, index) => (
                                     <tr key={index}>
-                                        <td className="text-center">{stat.email}</td>
+                                        <td className="text-center col-6">{stat.email}</td>
                                         {/* format date to dd/mm/yyyy */}
-                                        <td className="text-center">{new Date(stat.created_at).toLocaleDateString('pt-BR')}</td>
+                                        <td className="text-center col-6">{new Date(stat.created_at).toLocaleDateString('pt-BR')}</td>
                                     </tr>
                                 ))}
                             </tbody>
