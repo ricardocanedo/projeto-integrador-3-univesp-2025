@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from posts.api.urls import post_router
 from django.urls import path, include
 from .views import AnalyticsView
-from .views import PostDetailView, PopularPostsAnalyticsView
+from .views import PostDetailView, PopularPostsAnalyticsView, SubscriptionsListView
 
 router = DefaultRouter()
 
@@ -24,6 +24,10 @@ urlpatterns += [
 urlpatterns += [
     path('analytics/popular-posts/', PopularPostsAnalyticsView.as_view(), name='popular-posts-analytics'),
 ]
+
+urlpatterns += [
+    path('analytics/subscriptions/', SubscriptionsListView.as_view(), name='subscriptions-list'),
+]   
 
 #comments
 

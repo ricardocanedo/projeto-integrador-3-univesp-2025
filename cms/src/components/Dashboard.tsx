@@ -8,12 +8,18 @@ interface PostStats {
     views: number;
 }
 
+interface SubscriptionStats {
+    email: string;
+    created_at: string;
+}
+
 const Dashboard: React.FC = () => {
     const [totalPosts, setTotalPosts] = useState(0);
     const [totalNewsletter, setTotalNewsletter] = useState(0);
     const [postsByAuthor, setPostsByAuthor] = useState<any[]>([]);
     const [postsByMonth, setPostsByMonth] = useState<any[]>([]);
     const [postStats, setPostStats] = useState<PostStats[]>([]);
+    const [subscriptionStats, setSubscriptionStats] = useState<SubscriptionStats[]>([]);
 
     useEffect(() => {
         const fetchAnalytics = async () => {
@@ -43,8 +49,18 @@ const Dashboard: React.FC = () => {
             }
         };
 
+        const fetchSubscriptions = async () => {
+            try {
+                const response = await api.get('/api/analytics/subscriptions/');
+                setSubscriptionStats(response.data.subscriptions);
+            } catch (error) {
+                console.error('Error fetching subscriptions:', error);
+            }
+        }
+
         fetchAnalytics();
         fetchPostStats();
+        fetchSubscriptions();
     }, []);
 
     return (
@@ -70,7 +86,6 @@ const Dashboard: React.FC = () => {
                         <h3 className='mb-4'>Posts Por Mês</h3>
                         <ul>
                             {postsByMonth.map((month: any) => (
-                                // get month / year from month
                                 <li key={month.month}>{new Date(month.month).toLocaleString('default', { month: 'long' })}-{new Date(month.month).getFullYear()}: {month.count}</li>
                             ))}
                         </ul>
@@ -91,6 +106,26 @@ const Dashboard: React.FC = () => {
                                         <td className="text-center">{stat.month_year}</td>
                                         <td className="text-center">{stat.post_title}</td>
                                         <td className="text-center">{stat.views}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="card card-body my-4">
+                        <h3 className='mb-4'>Inscrições na Newsletter</h3>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th className="text-center">Emails</th>
+                                    <th className="text-center">Data de inscrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {subscriptionStats.map((stat, index) => (
+                                    <tr key={index}>
+                                        <td className="text-center">{stat.email}</td>
+                                        {/* format date to dd/mm/yyyy */}
+                                        <td className="text-center">{new Date(stat.created_at).toLocaleDateString('pt-BR')}</td>
                                     </tr>
                                 ))}
                             </tbody>
