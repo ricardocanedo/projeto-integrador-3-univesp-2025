@@ -36,6 +36,10 @@ p {
     font-weight: 300;
 }
 
+section ul li {
+    margin-left: 32px;
+}
+
 .top {
     position: absolute;
     left: 0;
