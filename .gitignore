@@ -2,10 +2,10 @@
 *.ini
 
 # Node modules (React)
-frontend/node_modules/
+cms/node_modules/
 
 # Build output (React)
-frontend/build/
+cms/build/
 
 # Django #
 *.log
