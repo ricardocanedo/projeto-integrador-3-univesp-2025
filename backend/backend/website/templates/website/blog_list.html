@@ -1,0 +1,58 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+<section class="banner bg-light text-center d-flex justify-content-center align-items-center" style="height: 40vh;" aria-labelledby="blog-title">
+    <div class="mt-4">
+        <h1 id="blog-title" class="banner-title color-light text-light my-4">Blog</h1>
+    </div>
+</section>
+
+<section class="pb-5" aria-labelledby="recent-posts">
+    <div class="container-lg">
+        <section>
+            <div class="row">
+                <div class="offset-2 col-8">
+                    <h4 id="recent-posts" class="text-center my-4">Artigos e Insights</h4>
+                    <h6>Fique por dentro das novidades e dos assuntos mais interessantes da área médica e jurídica</h6>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row mt-4">
+                <div class="col">
+                    <h2>Postagens Recentes</h2>
+                </div>
+            </div>
+            <div class="row">
+
+                {% for post in posts %}
+                    <div class="col-xl-4 col-md-6 col-12">
+                        <div class="card card-post mb-2 shadow-sm rounded-10">
+                            <img src="{% if post.banner_image %}{{ post.banner_image.url }}{% else %}/static/website/blog/default_banner.jpg{% endif %}" 
+                                class="card-img-post img-ajust-top rounded-top-10" alt="{{ post.title }}">
+                            <div class="card-body">
+                                {% if post.slug %}
+                                    <h5 class="card-title"><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h5>
+                                {% else %}
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                {% endif %}
+                                
+                                <div class="card-bloglist-textbox mb-3">{{ post.get_summary|safe }}</div>
+
+                                {% if post.slug %}
+                                    <a href="{% url 'blog_detail' post.slug %}" class="btn btn-primary">Continue lendo <i class="fa fa-arrow-right"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </section>
+    </div>
+</section>
+
+{% endblock %}

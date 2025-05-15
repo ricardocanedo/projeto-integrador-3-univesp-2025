@@ -1,0 +1,64 @@
+{% extends 'website/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<section class="banner bg-light text-center d-flex justify-content-center align-items-center" style="height: 40vh;">
+    <div class="mt-4">
+        <h1 class="banner-title color-light text-light my-4 text-captilized">{{ post.title }}</h1>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container-lg">
+        <!-- banner -->
+         {% if post.banner_image %}
+        <section>
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <img src="{{ post.banner_image.url }}" 
+                        class="img-fluid rounded-10" alt="{{ post.title }}">
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Conteúdo -->
+        <section>
+            {{ post.content|safe }}
+        </section>
+
+        <!-- Autor -->
+        <div class="card rounded-20 card-autor">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 col-12 mx-auto d-flex justify-content-center">
+                        <img src="/static/website/media/advogada_francine_bassetti.jpg" alt="Imagem do Autor" class="autor-img img-fluid rounded-circle">
+                    </div>
+                    <div class="col-md-9 col-12 d-flex flex-column justify-content-center">
+                        <div class="my-2">
+                            <div class="autor-text text-secondary my-2">Autor:</div>
+                            <h4 class="autor-name"><span class="">{{ post.author }}</span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comentários -->
+        <section class="my-4">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Formulário de Comentários -->
+                    
+
+                    <!-- Comentários Enviados -->
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+{% endblock %}

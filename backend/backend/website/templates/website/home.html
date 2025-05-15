@@ -1,0 +1,123 @@
+{% extends 'website/base.html' %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <section id="home" class="home-banner bg-dark mx-auto pb-2 mb-4" aria-labelledby="home-title">
+        <div class="card card-body card-banner translucido">
+            <h1 id="home-title" class="home-title text-light mb-2">Advocacia Francine Bassetti</h1>
+            <h2 class="text-light text-capitalize color-light">Atuação especializada em defesa médica complexa</h2>
+            <div class="text-light color-light mb-3">
+                Anos de experiência em advocacia médica: a excelência é o nosso maior compromisso.
+            </div>
+            <a class="btn btn-raised border-light text-light bg-primary-light btn-link" href="/area-de-atuacao" target="_self">
+                Quero saber mais
+            </a>
+        </div>
+    </section>
+
+    <section class="container" id="sobre" aria-labelledby="sobre-title">
+        <div class="row">
+            <div class="col-md-6 col-12 d-flex flex-column justify-content-center mb-4">
+                <h1 id="sobre-title" class="text-gray mt-4 mb-2">Sobre Nós</h1>
+                <h2 class="text-capitalize">Protegemos sua trajetória profissional para que você continue salvando vidas.</h2>
+                <p class="text-gray">Seja bem-vindo ao ST Centro Jurídico, referência em Defesa Médica de Alta Complexidade. Com mais de duas décadas de atuação na advocacia – sendo 11 anos voltados exclusivamente à defesa judicial e administrativa de médicos –, nos destacamos pela qualidade e dedicação singular a essa área.</p>
+                <p class="text-gray">Nosso escritório possui uma missão clara: DEFENDER MÉDICOS. Todos os nossos esforços, estudos e dedicação são direcionados para elaborar teses jurídicas consistentes, garantindo os melhores resultados tanto no judiciário quanto nos Conselhos de Medicina.</p>
+            </div>
+            <div class="col-md-6 col-12">
+                <img src="/static/website/media/advogada_francine_bassetti.jpg" alt="Advogada Francine Bassetti sorrindo" class="img-fluid rounded-20 img-500">
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="areas">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-gray mb-2">Áreas de Atuação</h1>
+                <h2>Atuamos com excelência em defesas médicas complexas</h2>
+            </div>
+            <div class="col">
+                <p class="text-gray">Nossa especialidade está na representação de médicos em ações judiciais de indenização, sindicâncias e processos disciplinares em Conselhos de Medicina, entidades de especialidades médicas e órgãos públicos e privados. Com ampla base técnica e visão estratégica, asseguramos uma defesa eficiente e consistente.</p>
+            </div>
+        </div>
+        <div class="row px-3">
+            <div class="col-md-4 col-12 mb-3 p-0 pr-md-3">
+                <a class="card bg-white box-shadow-s padding-l transition hover-grow radius-l" href="area-de-atuacao" target="_self">
+                    <div class="card-textbox area-atuacao-1 rounded">
+                        <div class="d-flex flex-column justify-content-end h-100">
+                            <h6 class="text-title-light p-2">Defesa judicial de médicos em litígios complexos envolvendo atos médicos.</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-12 mb-3 p-0">
+                <a class="card bg-white box-shadow-s padding-l transition hover-grow radius-l" href="area-de-atuacao" target="_self">
+                    <div class="card-textbox area-atuacao-2 rounded">
+                        <div class="d-flex flex-column justify-content-end h-100">
+                            <h6 class="text-title-light p-2">Atuação em processos administrativos perante os Conselhos de Medicina.</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 col-12 mb-3 p-0 pr-md-3">
+                <a class="card bg-white box-shadow-s padding-l transition hover-grow radius-l" href="area-de-atuacao" target="_self">
+                    <div class="card-textbox area-atuacao-3 rounded">
+                        <div class="d-flex flex-column justify-content-end h-100">
+                            <h6 class="text-title-light p-2">Adoção de estratégias para redução de riscos jurídicos na prática médica.</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-12 mb-3 p-0">
+                <a class="card bg-white box-shadow-s padding-l transition hover-grow radius-l" href="area-de-atuacao" target="_self">
+                    <div class="card-textbox area-atuacao-4 rounded">
+                        <div class="d-flex flex-column justify-content-end h-100">
+                            <h6 class="text-title-light p-2">Documentação médica personalizada com foco na mitigação de riscos legais.</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="blog">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-gray mb-2">Blog</h1>
+                <h2>Informação e Atualização</h2>
+            </div>
+            <div class="col">
+                <p class="text-gray">Confira nossas principais publicações sobre o universo jurídico. Um espaço informativo com os temas mais relevantes e recentes da área.</p>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            {% for post in posts %}
+                <div class="col-xl-3 col-md-6 col-12 my-3">
+                    <div class="post-card-home card h-100 d-flex flex-column">
+                        <img src="{% if post.banner_image %}{{ post.banner_image.url }}{% else %}/static/website/blog/default_banner.jpg{% endif %}" 
+                            class="card-img-top" alt="{{ post.title }}">
+                        <div class="card-body d-flex flex-column flex-grow-1 justify-content-between text-center card-body-blog">
+                            {% if post.slug %}
+                                <h5 class="card-title mb-3"><a class="text-dark" href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h5>
+                            {% else %}
+                                <h5 class="card-title mb-3">{{ post.title }}</h5>
+                            {% endif %}
+                            <p class="text-justify text-muted">{{ post.get_summary|safe }}</p>
+                            <div>
+                                <p class="card-text text-muted m-0">{{ post.author }}</p>
+                                {% if post.slug %}
+                                    <a href="{% url 'blog_detail' post.slug %}" class="btn btn-dark mt-1 w-75">Ler mais</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
