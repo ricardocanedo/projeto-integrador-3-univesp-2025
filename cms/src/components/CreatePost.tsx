@@ -88,7 +88,7 @@ const CreatePost: React.FC = () => {
                             <div className="mb-3">
                                 <label className="form-label">Conteúdo</label>
                                 <CKEditor
-                                    editor={ClassicEditor}
+                                    editor={ClassicEditor as any}
                                     data={content}
                                     onChange={(_event, editor) => {
                                         const data = editor.getData();
