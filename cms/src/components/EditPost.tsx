@@ -17,7 +17,7 @@ const EditPost: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [post, setPost] = useState<Post | null>(null);
     const [title, setTitle] = useState('');
-    const [bannerImage, setBannerImage] = useState(null);
+    const [bannerImage, setFile] = useState<File | null>(null);
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [slug, setSlug] = useState('');
@@ -37,7 +37,7 @@ const EditPost: React.FC = () => {
 
                 // Se houver uma imagem, defina o estado para exibi-la
                 if (response.data.banner_image) {
-                    setBannerImage(response.data.banner_image);
+                    setFile(response.data.banner_image);
                 }
             } catch (error) {
                 console.error('Error fetching post:', error);
@@ -77,6 +77,16 @@ const EditPost: React.FC = () => {
     const handleBack = () => {
         navigate('/posts');
     };
+    
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) {
+            console.error("Nenhum arquivo selecionado.");
+            return;
+        }
+
+        const file = e.target.files[0];
+        setFile(file);
+    };
 
     return (
         <div className="edit-post-container">
@@ -111,7 +121,7 @@ const EditPost: React.FC = () => {
                                         type="file"
                                         className="form-control"
                                         accept="image/*"
-                                        onChange={(e) => setBannerImage(e.target.files[0])}
+                                        onChange={(e) => handleFileChange(e)}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -119,7 +129,7 @@ const EditPost: React.FC = () => {
                                     <CKEditor
                                         editor={ClassicEditor}
                                         data={content}
-                                        onChange={(event, editor) => {
+                                        onChange={(_event, editor) => {
                                             const data = editor.getData();
                                             setContent(data);
                                         }}
