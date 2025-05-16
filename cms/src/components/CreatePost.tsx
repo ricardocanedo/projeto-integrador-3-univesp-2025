@@ -8,7 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const CreatePost: React.FC = () => {
     const [title, setTitle] = useState('');
-    const [bannerImage, setBannerImage] = useState(null);
+    const [bannerImage, setFile] = useState<File | null>(null);
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [slug, setSlug] = useState('');
@@ -49,6 +49,16 @@ const CreatePost: React.FC = () => {
         navigate('/posts');
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) {
+            console.error("Nenhum arquivo selecionado.");
+            return;
+        }
+
+        const file = e.target.files[0];
+        setFile(file);
+    };
+
     return (
         <div className="create-post-container">
             <Navbar />
@@ -72,7 +82,7 @@ const CreatePost: React.FC = () => {
                                     type="file"
                                     className="form-control"
                                     accept="image/*"
-                                    onChange={(e) => setBannerImage(e.target.files[0])}
+                                    onChange={(e) => handleFileChange(e)}
                                 />
                             </div>
                             <div className="mb-3">
@@ -80,7 +90,7 @@ const CreatePost: React.FC = () => {
                                 <CKEditor
                                     editor={ClassicEditor}
                                     data={content}
-                                    onChange={(event, editor) => {
+                                    onChange={(_event, editor) => {
                                         const data = editor.getData();
                                         setContent(data);
                                     }}
