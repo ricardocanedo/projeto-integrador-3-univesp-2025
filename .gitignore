@@ -13,7 +13,7 @@ cms/build/
 *.pyc
 __pycache__
 db.sqlite3
-media
+backend/backend/media/blog/banners/*
 
 # Backup files # 
 *.bak 
