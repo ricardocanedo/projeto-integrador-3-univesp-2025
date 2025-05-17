@@ -12,7 +12,7 @@ import './App.css'
 
 function App() {
     return (
-      <Router>
+      <Router basename="/cms">
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
