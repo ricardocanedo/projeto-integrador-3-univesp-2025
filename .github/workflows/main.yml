@@ -45,8 +45,8 @@ jobs:
       
       - name: Install Python dependencies
         run: |
-          cd ..
-          cd backend
+          ls
+          cd ../backend
           source venv/bin/activate
           pip install -r requirements.txt
 
