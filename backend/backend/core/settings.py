@@ -130,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'backend' / 'website' / 'static',  # ← ajuste aqui se necessário
+    BASE_DIR / 'website' / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'backend' / 'static'
 
