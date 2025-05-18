@@ -45,7 +45,6 @@ jobs:
       
       - name: Install Python dependencies
         run: |
-          ls
           cd backend
           ls
           source venv/bin/activate
