@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies and build React
         run: |
-          cd frontend
+          cd cms
           npm install
           npm run build
 
