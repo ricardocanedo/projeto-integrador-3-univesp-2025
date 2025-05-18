@@ -1,58 +1,63 @@
 name: francinebassetti deployment
 
 on: 
-    push:
-        branches: [main]
+  push:
+    branches: [main]
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs: 
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Build
-              run: echo "Building the project..."
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo "Building the project..."
 
-    # Deploy to Development
-    deploy-development:
-        runs-on: ubuntu-latest
-        needs: build
-        environment: 
-            name: development
-            url: ${{ vars.URL }}
-        steps:
-            - name: Deploy to Development
-              uses: actions/checkout@v2
-            # - name: Service Deployment
-            #   uses: easinthemes/ssh-deploy@main
-            #   with: 
-            #     SSH_PRIVATE_KEY: $ {{ secrets.SERVER_SSH_KEY }}
-            #     ARGS: "-rlgoDzvc --delete"
-            #     SOURCE: "public/"
-            #     REMOTE_HOST: $ {{ vars.REMOTE_HOST }}
-            #     REMOTE_USER: $ {{ vars.REMOTE_USER }}
-            #     REMOTE_PORT: $ {{ vars.REMOTE_PORT }}
-            #     TARGET: $ {{ vars.REMOTE_TARGET }}
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    # Deploy to Staging
-    deploy-staging:
-        runs-on: ubuntu-latest
-        needs: deploy-development
-        environment: 
-            name: staging
-            url: ${{ vars.URL }}
-        steps:
-            - name: Deploy to staging
-              uses: actions/checkout@v2
+      - name: Install dependencies and build React
+        run: |
+          cd frontend
+          npm install
+          npm run build
 
-    
-    # Deploy to Production
-    deploy-production:
-        runs-on: ubuntu-latest
-        needs: deploy-staging
-        environment: 
-            name: production
-            url: ${{ vars.URL }}
-        steps:
-            - name: Deploy to production
-              uses: actions/checkout@v2
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd ${{ secrets.REMOTE_TARGET }}
+            git pull origin main
+            source backend/venv/bin/activate
+            pip install -r backend/requirements.txt
+            python backend/backend/manage.py migrate
+            python backend/backend/manage.py collectstatic --noinput
+            systemctl restart gunicorn  # Reinicia o Django
+            cp -r frontend/build/* /var/www/  # Move arquivos do React
+  
+  # Deploy to Production
+  production:
+    runs-on: ubuntu-latest
+    needs: deploy
+    environment: 
+      name: production
+      url: ${{ vars.URL }}
+    steps:
+      - name: Deploy to production
+        uses: actions/checkout@v2
