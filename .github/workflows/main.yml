@@ -24,7 +24,7 @@ jobs:
       - name: Cache Node.js dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: cms/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('cms/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
