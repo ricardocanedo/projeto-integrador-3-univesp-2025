@@ -21,11 +21,34 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('cms/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies and build React
         run: |
           cd cms
           npm install
           npm run build
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install Python dependencies
+        run: |
+          cd backend
+          source venv/bin/activate
+          pip install -r requirements.txt
+
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,8 +72,9 @@ jobs:
             python backend/backend/manage.py migrate
             python backend/backend/manage.py collectstatic --noinput
             systemctl restart gunicorn  # Reinicia o Django
-            cp -r frontend/build/* /var/www/  # Move arquivos do React
+            cp -r cms/build/* /var/www/  # Move arquivos do React
   
+            
   # Deploy to Production
   production:
     runs-on: ubuntu-latest
