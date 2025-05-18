@@ -130,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'website', 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'files')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Configuração de arquivos de mídia (uploads)
 MEDIA_URL = '/media/'
