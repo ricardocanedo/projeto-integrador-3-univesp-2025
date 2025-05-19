@@ -73,8 +73,8 @@ jobs:
             python backend/manage.py collectstatic --noinput
             systemctl restart gunicorn  # Reinicia o Django
             cp -r cms/build/* /var/www/  # Move arquivos do React
-            sudo systemctl restart gunicorn
-            sudo systemctl restart nginx
+            systemctl restart gunicorn
+            systemctl restart nginx
             
   # Deploy to Production
   production:
