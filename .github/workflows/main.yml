@@ -69,8 +69,8 @@ jobs:
             cd backend
             source venv/bin/activate
             pip install -r requirements.txt
-            python backend/backend/manage.py migrate
-            python backend/backend/manage.py collectstatic --noinput
+            python backend/manage.py migrate
+            python backend/manage.py collectstatic --noinput
             systemctl restart gunicorn  # Reinicia o Django
             cp -r cms/build/* /var/www/  # Move arquivos do React
             sudo systemctl restart gunicorn
