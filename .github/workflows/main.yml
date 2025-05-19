@@ -66,15 +66,18 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
+            set -e  # para parar em qualquer erro
             cd ${{ secrets.REMOTE_TARGET }}
             git pull origin main
-            source backend/venv/bin/activate
-            pip install -r backend/requirements.txt
+            cd backend
+            source venv/bin/activate
+            pip install -r requirements.txt
             python backend/backend/manage.py migrate
             python backend/backend/manage.py collectstatic --noinput
             systemctl restart gunicorn  # Reinicia o Django
             cp -r cms/build/* /var/www/  # Move arquivos do React
-  
+            sudo systemctl restart gunicorn
+            sudo systemctl restart nginx
             
   # Deploy to Production
   production:
