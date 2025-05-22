@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()  # Carrega do .env automaticamente
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sp+t8)qurhzix-2e&xxo7wd(@#on9k3d$05ia=fj-uwd)l7va$'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-sp+t8)qurhzix-2e&xxo7wd(@#on9k3d$05ia=fj-uwd)l7va$')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
