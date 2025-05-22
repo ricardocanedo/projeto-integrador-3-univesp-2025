@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CMS_URL'),
+    os.environ.get('BASE_URL'),
 ]
 
 MIDDLEWARE = [
