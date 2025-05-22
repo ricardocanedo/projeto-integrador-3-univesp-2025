@@ -151,4 +151,5 @@ REST_FRAMEWORK = {
     # ...existing settings...
 }
 
-RATELIMIT_IP_META_KEY = 'HTTP_X_FORWARDED_FOR'
+# se debug for false HTTP_X_FORWARDED_FOR se não REMOTE_ADDR
+RATELIMIT_IP_META_KEY = 'HTTP_X_FORWARDED_FOR' if not DEBUG else 'REMOTE_ADDR'
