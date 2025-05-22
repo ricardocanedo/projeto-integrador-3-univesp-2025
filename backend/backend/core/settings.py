@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Carrega do .env automaticamente
 
+print(os.environ.get("BASE_URL"))
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
