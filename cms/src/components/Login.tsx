@@ -12,6 +12,7 @@ const Login: React.FC = () => {
         // Clear tokens when entering the login page
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('username');
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -21,6 +22,7 @@ const Login: React.FC = () => {
             const { access, refresh } = response.data;
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
+            localStorage.setItem('username', username);
             navigate('/dashboard');
         } catch (err: any) {
             if (err.response && err.response.data) {
