@@ -16,8 +16,6 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Carrega do .env automaticamente
 
-print(os.environ.get("BASE_URL"))
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -55,7 +53,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('BASE_URL'),
+    os.environ.get('CMS_URL'),
 ]
 
 MIDDLEWARE = [
