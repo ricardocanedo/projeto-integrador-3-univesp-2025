@@ -8,6 +8,9 @@ import EditPost from './components/EditPost';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreatePost from './components/CreatePost';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Importa o JS com Popper
+
 import './App.css'
 
 function App() {
